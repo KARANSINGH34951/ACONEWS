@@ -2,20 +2,22 @@ import React from 'react';
 
 const Card = ({ article }) => {
   return (
-    <div className="max-w-sm mx-auto bg-white shadow-lg rounded-lg overflow-hidden">
-      <img 
-        className="w-full h-48 object-cover" 
-        src={article.image || 'https://via.placeholder.com/150'} 
-        alt={article.title} 
-      />
-      <div className="p-4">
-        <h2 className="text-xl font-bold mb-2">{article.title}</h2>
-        <p className="text-gray-700 mb-4">{article.description}</p>
+    <div className="bg-white shadow-lg rounded-lg overflow-hidden transform hover:scale-105 transition duration-300 ease-in-out">
+      <div className="relative h-56">
+        <img 
+          className="w-full h-full object-cover rounded-t-lg" 
+          src={article.image || 'https://via.placeholder.com/150'} 
+          alt={article.title} 
+        />
+      </div>
+      <div className="p-6">
+        <h2 className="text-lg font-bold mb-2 leading-tight text-gray-900">{article.title}</h2>
+        <p className="text-sm text-gray-600 mb-4 line-clamp-3">{article.description}</p>
         <a 
-          href={article.image} 
+          href={article.url} 
           target="_blank" 
           rel="noopener noreferrer" 
-          className="text-blue-500 hover:underline"
+          className="inline-block text-blue-500 hover:underline font-semibold"
         >
           Read more
         </a>

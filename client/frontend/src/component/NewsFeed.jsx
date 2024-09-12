@@ -1,22 +1,20 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import SearchBar from './SearchBar';  
 import Card from './Card';  
-import CategorySidebar from './Sidebar'; 
+import SearchBar from './SearchBar';  
 
-function NewsFeed() {
+const NewsFeed = ({ category }) => {
   const [news, setNews] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const [selectedCategory, setSelectedCategory] = useState('general');
 
   useEffect(() => {
-    fetchNews();
-  }, [selectedCategory]);
+    fetchNews(category);
+  }, [category]);
 
-  const fetchNews = () => {
+  const fetchNews = (category) => {
     setLoading(true);
-    axios.get(`http://localhost:5000/news?category=${selectedCategory}`)
+    axios.get(`http://localhost:5000/news?category=${category}`)
       .then(response => {
         setNews(response.data.articles);
         setLoading(false);
@@ -30,7 +28,7 @@ function NewsFeed() {
 
   const handleSearch = (searchTerm) => {
     setLoading(true);
-    axios.get('http://localhost:5000/search', { params: { q: searchTerm, category: selectedCategory } })
+    axios.get('http://localhost:5000/search', { params: { q: searchTerm } })
       .then(response => {
         setNews(response.data.articles);
         setLoading(false);
@@ -42,10 +40,6 @@ function NewsFeed() {
       });
   };
 
-  const handleCategorySelect = (category) => {
-    setSelectedCategory(category);
-  };
-
   if (loading) {
     return <div className="flex justify-center items-center h-screen">Loading...</div>;
   }
@@ -55,23 +49,19 @@ function NewsFeed() {
   }
 
   return (
-    <div className="flex">
-      <CategorySidebar onCategorySelect={handleCategorySelect} /> 
-      <div className="container mx-auto p-4 flex-1">
-        <SearchBar onSearch={handleSearch} />  
-
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mt-4">
-          {news.length ? (
-            news.map((article, index) => (
-              <Card key={index} article={article} /> 
-            ))
-          ) : (
-            <p>No news available.</p>
-          )}
-        </div>
+    <div className="p-4">
+      <SearchBar onSearch={handleSearch} />
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        {news.length ? (
+          news.map((article, index) => (
+            <Card key={index} article={article} />
+          ))
+        ) : (
+          <p>No news available.</p>
+        )}
       </div>
     </div>
   );
-}
+};
 
 export default NewsFeed;
