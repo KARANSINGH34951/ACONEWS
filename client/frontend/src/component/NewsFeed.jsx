@@ -5,12 +5,12 @@ function NewsFeed() {
   const [news, setNews] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [searchTerm, setSearchTerm] = useState('');
 
   useEffect(() => {
-    // Fetch news from the backend
     axios.get('http://localhost:5000/news')
       .then(response => {
-        setNews(response.data.articles);  // Adjust based on your API response structure
+        setNews(response.data.articles);
         setLoading(false);
       })
       .catch(error => {
@@ -19,6 +19,20 @@ function NewsFeed() {
         setLoading(false);
       });
   }, []);
+
+  const handleSearch = () => {
+    setLoading(true);
+    axios.get('http://localhost:5000/search', { params: { q: searchTerm } })
+      .then(response => {
+        setNews(response.data.articles);
+        setLoading(false);
+      })
+      .catch(error => {
+        console.error("Error fetching search news:", error);
+        setError("Failed to load search results.");
+        setLoading(false);
+      });
+  };
 
   if (loading) {
     return <div className="flex justify-center items-center h-screen">Loading...</div>;
@@ -30,7 +44,14 @@ function NewsFeed() {
 
   return (
     <div className="container mx-auto p-4">
-      <h1 className="text-3xl font-bold mb-4">Latest News</h1>
+      <input
+        type="text"
+        value={searchTerm}
+        onChange={(e) => setSearchTerm(e.target.value)}
+        placeholder="Search for news"
+        className="p-2 border border-gray-300 rounded"
+      />
+      <button onClick={handleSearch} className="ml-2 bg-blue-500 text-white p-2 rounded">Search</button>
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
         {news.map((article, index) => (
           <div key={index} className="max-w-sm mx-auto bg-white shadow-lg rounded-lg overflow-hidden">

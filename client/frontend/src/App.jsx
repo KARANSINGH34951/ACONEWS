@@ -1,18 +1,19 @@
-import './App.css'
-import Header from './component/Header'
-import NewsFeed from './component/NewsFeed'
+// src/App.jsx
+import React from 'react';
+import Header from './component/Header';  // Your existing Header component
+import NewsFeed from './component/NewsFeed';
 
-function App() {
- 
+const App = () => {
+  
 
   return (
-    <div className='App'>
-      <Header/>
-      <div>
-        {/* <NewsFeed/> */}
-      </div>
+    <div className="app-container">
+      <Header />
+      
+      {/* <NewsFeed query={query} /> */}
+      <NewsFeed/>
     </div>
-  )
-}
+  );
+};
 
-export default App
+export default App;
