@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import Sidebar from './component/Sidebar';
 import NewsFeed from './component/NewsFeed';
 import Headers from './component/Header';
+import Footer from './component/Footer';
 
 const App = () => {
   const [category, setCategory] = useState('general');
@@ -27,6 +28,8 @@ const App = () => {
         <NewsFeed category={category} country={country} />
       </div>
     </div>
+
+    <Footer/>
     </>
     
    

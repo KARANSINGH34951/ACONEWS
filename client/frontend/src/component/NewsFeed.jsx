@@ -4,6 +4,7 @@ import Card from './Card';
 import SearchBar from './SearchBar';  
 import ShimmerCard from './ShimmerCard';  
 import ShimmerSearchBar from './ShimmerSearchBar';  // Import the ShimmerSearchBar component
+import ErrorComponent from './ErrorComponent'; // Import the ErrorComponent
 
 const NewsFeed = ({ category, country }) => {
   const [news, setNews] = useState([]);
@@ -76,7 +77,7 @@ const NewsFeed = ({ category, country }) => {
   }
 
   if (error) {
-    return <div className="flex justify-center items-center h-screen text-red-500">{error}</div>;
+    return <ErrorComponent />;
   }
 
   return (
