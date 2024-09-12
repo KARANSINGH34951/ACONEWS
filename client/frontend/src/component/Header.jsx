@@ -12,7 +12,6 @@ const Header = () => {
       setTime(new Date().toLocaleTimeString());
     }, 1000);
 
-    
     return () => clearInterval(interval);
   }, []);
 

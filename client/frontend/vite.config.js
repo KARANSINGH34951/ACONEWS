@@ -12,7 +12,11 @@ export default defineConfig({
       '/search': {
         target: 'http://localhost:5000',
         changeOrigin: true,
-      }
+      },
+      '/suggestions': {
+        target: 'http://localhost:5000',
+        changeOrigin: true,
+      },
     }
   },
   plugins: [react()],
