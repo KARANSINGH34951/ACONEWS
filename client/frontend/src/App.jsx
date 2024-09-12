@@ -1,31 +1,35 @@
 import React, { useState } from 'react';
 import Sidebar from './component/Sidebar';
 import NewsFeed from './component/NewsFeed';
-import Header from './component/Header';  // Assuming you have a Header component
+import Headers from './component/Header';
 
 const App = () => {
   const [category, setCategory] = useState('general');
+  const [country, setCountry] = useState('us');
 
-  const handleCategorySelect = (selectedCategory) => {
+  const handleSelectCategory = (selectedCategory) => {
     setCategory(selectedCategory);
   };
 
+  const handleSelectCountry = (selectedCountry) => {
+    setCountry(selectedCountry);
+  };
+
   return (
-    <div className="flex flex-col h-screen">
-      
-      <Header />
-
-      
-      <div className="flex flex-1">
-        
-        <Sidebar onSelectCategory={handleCategorySelect} />
-
-        
-        <div className="flex-1 p-6 bg-gray-50">
-          <NewsFeed category={category} />
-        </div>
+    <>
+    <Headers/>
+       <div className="flex">
+      <Sidebar 
+        onSelectCategory={handleSelectCategory} 
+        onSelectCountry={handleSelectCountry} 
+      />
+      <div className="flex-grow p-4">
+        <NewsFeed category={category} country={country} />
       </div>
     </div>
+    </>
+    
+   
   );
 };
 

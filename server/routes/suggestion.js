@@ -1,19 +1,8 @@
 const express = require('express');
 const router = express.Router();
-const suggestionsData = require('../utils/suggestionData.json');
 
+const {getSuggestions} = require('../controllers/suggestionscontroller');
 
-
-
-router.get('/', (req, res) => {
-  const query = req.query.q.toLowerCase();
-
-
-  const filteredSuggestions = suggestionsData.filter((suggestion) =>
-    suggestion.toLowerCase().includes(query)
-  );
-
-  res.json(filteredSuggestions);
-});
+router.get('/', getSuggestions);
 
 module.exports = router;

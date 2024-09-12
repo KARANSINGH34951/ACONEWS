@@ -1,4 +1,3 @@
-// src/apiService.js
 const API_URL = import.meta.env.VITE_API_KEYL;
 
 export const fetchNews = async () => {
@@ -10,7 +9,7 @@ export const fetchNews = async () => {
     const data = await response.json();
     return data;
   } catch (error) {
-    console.error('Error fetching news:', error);
+    console.error('Error fetaching news:', error);
     throw error;
   }
 };
