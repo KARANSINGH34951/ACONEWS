@@ -1,16 +1,16 @@
 const express = require('express');
-const app = express();
 const router = express.Router();
 const axios = require('axios');
 const dotenv = require('dotenv');
 dotenv.config();
-const cors = require('cors');
-app.use(cors());
-
 
 router.get('/', async (req, res) => {
+  const category = req.query.category || 'general'; // Default to 'general'
+  const apikey = process.env.VITE_API_KEY;
+  const url = `https://gnews.io/api/v4/top-headlines?category=${category}&lang=en&country=us&max=10&apikey=${apikey}`;
+
   try {
-    const response = await axios.get(`https://gnews.io/api/v4/top-headlines?token=${process.env.VITE_API_KEY}&lang=en`);
+    const response = await axios.get(url);
     res.json(response.data);
   } catch (error) {
     console.error('Error fetching news:', error);

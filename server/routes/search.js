@@ -1,4 +1,3 @@
-// server/routes/search.js
 const express = require('express');
 const router = express.Router();
 const axios = require('axios');
@@ -14,7 +13,7 @@ router.get('/', async (req, res) => {
         lang: 'en',
         country: 'us',
         max: 10,
-        apikey: process.env.VITE_API_KEY, // Securely using API key
+        apikey: process.env.VITE_API_KEY, 
       },
     });
     res.json(response.data);

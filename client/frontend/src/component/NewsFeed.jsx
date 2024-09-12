@@ -1,14 +1,22 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import SearchBar from './SearchBar';  
+import Card from './Card';  
+import CategorySidebar from './Sidebar'; 
 
 function NewsFeed() {
   const [news, setNews] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const [searchTerm, setSearchTerm] = useState('');
+  const [selectedCategory, setSelectedCategory] = useState('general');
 
   useEffect(() => {
-    axios.get('http://localhost:5000/news')
+    fetchNews();
+  }, [selectedCategory]);
+
+  const fetchNews = () => {
+    setLoading(true);
+    axios.get(`http://localhost:5000/news?category=${selectedCategory}`)
       .then(response => {
         setNews(response.data.articles);
         setLoading(false);
@@ -18,11 +26,11 @@ function NewsFeed() {
         setError("Failed to load news.");
         setLoading(false);
       });
-  }, []);
+  };
 
-  const handleSearch = () => {
+  const handleSearch = (searchTerm) => {
     setLoading(true);
-    axios.get('http://localhost:5000/search', { params: { q: searchTerm } })
+    axios.get('http://localhost:5000/search', { params: { q: searchTerm, category: selectedCategory } })
       .then(response => {
         setNews(response.data.articles);
         setLoading(false);
@@ -34,6 +42,10 @@ function NewsFeed() {
       });
   };
 
+  const handleCategorySelect = (category) => {
+    setSelectedCategory(category);
+  };
+
   if (loading) {
     return <div className="flex justify-center items-center h-screen">Loading...</div>;
   }
@@ -43,26 +55,20 @@ function NewsFeed() {
   }
 
   return (
-    <div className="container mx-auto p-4">
-      <input
-        type="text"
-        value={searchTerm}
-        onChange={(e) => setSearchTerm(e.target.value)}
-        placeholder="Search for news"
-        className="p-2 border border-gray-300 rounded"
-      />
-      <button onClick={handleSearch} className="ml-2 bg-blue-500 text-white p-2 rounded">Search</button>
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-        {news.map((article, index) => (
-          <div key={index} className="max-w-sm mx-auto bg-white shadow-lg rounded-lg overflow-hidden">
-            <img className="w-full h-48 object-cover" src={article.image || 'https://via.placeholder.com/150'} alt={article.title} />
-            <div className="p-4">
-              <h2 className="text-xl font-bold mb-2">{article.title}</h2>
-              <p className="text-gray-700 mb-4">{article.description}</p>
-              <a href={article.url} target="_blank" rel="noopener noreferrer" className="text-blue-500 hover:underline">Read more</a>
-            </div>
-          </div>
-        ))}
+    <div className="flex">
+      <CategorySidebar onCategorySelect={handleCategorySelect} /> 
+      <div className="container mx-auto p-4 flex-1">
+        <SearchBar onSearch={handleSearch} />  
+
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mt-4">
+          {news.length ? (
+            news.map((article, index) => (
+              <Card key={index} article={article} /> 
+            ))
+          ) : (
+            <p>No news available.</p>
+          )}
+        </div>
       </div>
     </div>
   );
