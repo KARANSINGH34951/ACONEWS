@@ -3,6 +3,7 @@ import Sidebar from './component/Sidebar';
 import NewsFeed from './component/NewsFeed';
 import Headers from './component/Header';
 import Footer from './component/Footer';
+import Chatbot from './component/Chatbot';
 
 
 const App = () => {
@@ -21,6 +22,7 @@ const App = () => {
     <>
       <Headers />
       {/* <HeadlineSlider /> */}
+      <Chatbot/>
       <div className="flex flex-col lg:flex-row mt-20">
        
         <div className="hidden lg:block lg:w-1/4 lg:pr-4">
@@ -42,6 +44,7 @@ const App = () => {
             onSelectCountry={handleSelectCountry} 
           />
         </div>
+       
       </div>
       {/* <PopupNotification /> */}
       <Footer />
