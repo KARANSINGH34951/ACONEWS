@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import Card from './Card';  
-import SearchBar from './SearchBar';  
-import ShimmerCard from './ShimmerCard';  
-import ShimmerSearchBar from './ShimmerSearchBar';  
-import ErrorComponent from './ErrorComponent'; 
-import NoNews from './NoNews';  // Import the NoNews component
+import Card from './Card';
+import SearchBar from './SearchBar';
+import ShimmerCard from './ShimmerCard';
+import ShimmerSearchBar from './ShimmerSearchBar';
+import ErrorComponent from './ErrorComponent';
+import NoNews from './NoNews';
 
 const NewsFeed = ({ category, country }) => {
   const [news, setNews] = useState([]);
@@ -20,7 +20,7 @@ const NewsFeed = ({ category, country }) => {
 
   const fetchNews = (category, country, page) => {
     setLoading(true);
-    const pageSize = page === 1 ? 6 : 4; 
+    const pageSize = page === 1 ? 6 : 4;
 
     axios.get(`/news`, {
       params: {
@@ -31,8 +31,8 @@ const NewsFeed = ({ category, country }) => {
       }
     })
     .then(response => {
-      setNews(response.data.articles);
-      setTotalArticles(response.data.totalArticles);
+      setNews(Array.isArray(response.data.articles) ? response.data.articles : []);
+      setTotalArticles(response.data.totalArticles || 0);
       setLoading(false);
     })
     .catch(error => {
@@ -46,7 +46,7 @@ const NewsFeed = ({ category, country }) => {
     setLoading(true);
     axios.get('/search', { params: { q: searchTerm } })
       .then(response => {
-        setNews(response.data.articles);
+        setNews(Array.isArray(response.data.articles) ? response.data.articles : []);
         setLoading(false);
       })
       .catch(error => {
@@ -84,13 +84,13 @@ const NewsFeed = ({ category, country }) => {
     <div className="p-4">
       <SearchBar onSearch={handleSearch} />
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-6">
-        {news.length ? (
+        {Array.isArray(news) && news.length ? (
           news.map((article, index) => (
             <Card key={index} article={article} />
           ))
         ) : (
           <div className="flex items-center justify-center w-full h-96">
-            <NoNews /> 
+            <NoNews />
           </div>
         )}
       </div>

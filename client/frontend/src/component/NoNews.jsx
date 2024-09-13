@@ -21,7 +21,7 @@ const NoNews = () => {
       </div>
       <p className="text-3xl font-bold text-gray-800 mb-4">No News Available</p>
       <p className="text-gray-600 text-lg max-w-md mx-auto">
-        It looks like we don't have any news right now. Please check back later or explore other categories for more options.
+        It looks like we dont have any news right now. Please check back later or explore other categories for more options.
       </p>
     </div>
   );

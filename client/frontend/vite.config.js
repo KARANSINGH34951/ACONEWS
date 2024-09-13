@@ -6,15 +6,15 @@ export default defineConfig({
   server: {
     proxy: {
       '/news': {
-        target: 'http://localhost:5000',
+        target: 'https://aconews-seuh.onrender.com/',
         changeOrigin: true,
       },
       '/search': {
-        target: 'http://localhost:5000',
+        target: 'https://aconews-seuh.onrender.com/',
         changeOrigin: true,
       },
       '/suggestions': {
-        target: 'http://localhost:5000',
+        target: 'https://aconews-seuh.onrender.com/',
         changeOrigin: true,
       },
     }
