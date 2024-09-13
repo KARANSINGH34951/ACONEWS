@@ -21,7 +21,7 @@ const App = () => {
   return (
     <>
       <Headers />
-      {/* <HeadlineSlider /> */}
+     
       <Chatbot/>
       <div className="flex flex-col lg:flex-row mt-20">
        
@@ -46,7 +46,7 @@ const App = () => {
         </div>
        
       </div>
-      {/* <PopupNotification /> */}
+     
       <Footer />
     </>
   );
