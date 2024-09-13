@@ -1,4 +1,8 @@
-/* In your global CSS file or a module CSS file */
+
+*{
+  overflow-x: hidden;
+}
+
 .fixed {
   position: fixed;
 }
@@ -9,15 +13,18 @@
   background-color: #1e40af; /* Adjust color as needed */
 }
 
-.popup-notification {
-  position: fixed;
-  bottom: 20px;
-  right: 20px;
-  background-color: #3490dc;
-  color: white;
-  padding: 10px;
-  border-radius: 8px;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-  z-index: 1000;
-  transition: opacity 0.5s ease;
+@media (min-width: 629px) and (max-width: 1024px) {
+  .sidebar-content {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
+
+  .sidebar-content ul {
+    flex: 1;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px;
+  }
 }
+

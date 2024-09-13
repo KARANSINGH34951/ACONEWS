@@ -35,7 +35,7 @@ const SearchBar = ({ onSearch }) => {
   };
 
   return (
-    <div className="relative max-w-md mx-auto flex flex-col items-center mb-4">
+    <div className="relative max-w-md mx-auto flex flex-col items-center  mt-6 mb-6">
       <div className="relative w-full flex items-center"> {/* Added flex and items-center */}
         <input
           type="text"
@@ -44,14 +44,14 @@ const SearchBar = ({ onSearch }) => {
           className="border border-gray-300 rounded-l-lg p-3 w-full"
           placeholder="Search for news"
         />
-        <button
+        <buttons
           onClick={() => onSearch(searchTerm)}
           className="p-3 bg-blue-500 text-white rounded-r-lg"
         >
           Search
-        </button>
+        </buttons>
 
-        {/* Suggestions List */}
+       
         {suggestions.length > 0 && (
           <ul className="absolute top-full left-0 w-full bg-white border border-gray-200 mt-1 z-10 rounded-lg shadow-lg">
             {suggestions.map((suggestion, index) => (

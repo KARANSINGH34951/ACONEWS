@@ -22,7 +22,7 @@ const NewsFeed = ({ category, country }) => {
     setLoading(true);
     const pageSize = page === 1 ? 6 : 4; 
 
-    axios.get(`http://localhost:5000/news`, {
+    axios.get(`/news`, {
       params: {
         category: category,
         page: page,
