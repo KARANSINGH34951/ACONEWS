@@ -44,12 +44,12 @@ const SearchBar = ({ onSearch }) => {
           className="border border-gray-300 rounded-l-lg p-3 w-full"
           placeholder="Search for news"
         />
-        <buttons
+        <button
           onClick={() => onSearch(searchTerm)}
           className="p-3 bg-blue-500 text-white rounded-r-lg"
         >
           Search
-        </buttons>
+        </button>
 
        
         {suggestions.length > 0 && (
