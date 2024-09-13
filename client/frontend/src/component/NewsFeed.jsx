@@ -3,8 +3,9 @@ import axios from 'axios';
 import Card from './Card';  
 import SearchBar from './SearchBar';  
 import ShimmerCard from './ShimmerCard';  
-import ShimmerSearchBar from './ShimmerSearchBar';  // Import the ShimmerSearchBar component
-import ErrorComponent from './ErrorComponent'; // Import the ErrorComponent
+import ShimmerSearchBar from './ShimmerSearchBar';  
+import ErrorComponent from './ErrorComponent'; 
+import NoNews from './NoNews';  // Import the NoNews component
 
 const NewsFeed = ({ category, country }) => {
   const [news, setNews] = useState([]);
@@ -19,8 +20,7 @@ const NewsFeed = ({ category, country }) => {
 
   const fetchNews = (category, country, page) => {
     setLoading(true);
-
-    const pageSize = page === 1 ? 6 : 4; // 6 articles on page 1, 4 articles on page 2
+    const pageSize = page === 1 ? 6 : 4; 
 
     axios.get(`http://localhost:5000/news`, {
       params: {
@@ -30,16 +30,16 @@ const NewsFeed = ({ category, country }) => {
         country: country
       }
     })
-      .then(response => {
-        setNews(response.data.articles);
-        setTotalArticles(response.data.totalArticles);
-        setLoading(false);
-      })
-      .catch(error => {
-        console.error("Error fetching news:", error);
-        setError("Failed to load news.");
-        setLoading(false);
-      });
+    .then(response => {
+      setNews(response.data.articles);
+      setTotalArticles(response.data.totalArticles);
+      setLoading(false);
+    })
+    .catch(error => {
+      console.error("Error fetching news:", error);
+      setError("Failed to load news.");
+      setLoading(false);
+    });
   };
 
   const handleSearch = (searchTerm) => {
@@ -67,8 +67,8 @@ const NewsFeed = ({ category, country }) => {
     return (
       <div className="p-4">
         <ShimmerSearchBar />
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-          {[...Array(6)].map((_, index) => (
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+          {[...Array(12)].map((_, index) => (
             <ShimmerCard key={index} />
           ))}
         </div>
@@ -83,20 +83,22 @@ const NewsFeed = ({ category, country }) => {
   return (
     <div className="p-4">
       <SearchBar onSearch={handleSearch} />
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-6">
         {news.length ? (
           news.map((article, index) => (
             <Card key={index} article={article} />
           ))
         ) : (
-          <p>No news available.</p>
+          <div className="flex items-center justify-center w-full h-96">
+            <NoNews /> 
+          </div>
         )}
       </div>
-      <div className="flex justify-center mt-4">
+      <div className="flex justify-center mt-4 space-x-2">
         <button
           onClick={() => handlePageChange(currentPage - 1)}
           disabled={currentPage === 1}
-          className="px-4 py-2 bg-blue-500 text-white rounded-l-lg"
+          className="px-4 py-2 bg-blue-500 text-white rounded-l-lg disabled:opacity-50"
         >
           Previous
         </button>
@@ -106,7 +108,7 @@ const NewsFeed = ({ category, country }) => {
         <button
           onClick={() => handlePageChange(currentPage + 1)}
           disabled={currentPage === totalPages}
-          className="px-4 py-2 bg-blue-500 text-white rounded-r-lg"
+          className="px-4 py-2 bg-blue-500 text-white rounded-r-lg disabled:opacity-50"
         >
           Next
         </button>
