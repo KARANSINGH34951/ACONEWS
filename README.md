@@ -11,6 +11,9 @@
 - **Responsive Design**: Optimized for both mobile and desktop views.
 - **Weather Integration**: Displays current weather conditions in the header.
 
+<a href="https://ibb.co/5BrPJPd">
+  <img src="https://i.ibb.co/wMSf2fT/Screenshot-2024-09-15-163150.png" alt="ACONEWS Screenshot" border="0" />
+</a>
 
 ## Technologies Used
 
