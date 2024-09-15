@@ -10,7 +10,7 @@ const SearchBar = ({ onSearch }) => {
     debounce(async (value) => {
       if (value.length > 1) {
         try {
-          const response = await axios.get(`/suggestions?q=${value}`);
+          const response = await axios.get(`https://aconews-seuh.onrender.com/suggestions?q=${value}`);
           setSuggestions(response.data);
         } catch (error) {
           console.error("Error fetching suggestions:", error);

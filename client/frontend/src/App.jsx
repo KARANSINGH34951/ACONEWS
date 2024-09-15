@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
-import Sidebar from './component/Sidebar';
-import NewsFeed from './component/NewsFeed';
-import Headers from './component/Header';
-import Footer from './component/Footer';
+import Sidebar from './component/Sidebar/Sidebar';
+import NewsFeed from './component/Herosection/NewsFeed';
+import Header from './component/Navbar/Header';
+import Footer from './component/Footer/Footer';
 import Chatbot from './component/Chatbot';
-import Slider from './component/Slider'; // Import the Slider component
+import Slider from './component/Slider'; 
 
 const App = () => {
   const [category, setCategory] = useState('general');
@@ -20,7 +20,7 @@ const App = () => {
 
   return (
     <>
-      <Headers />
+      <Header />
       <Chatbot />
       <div className="flex flex-col lg:flex-row mt-20">
         <div className="hidden lg:block lg:w-1/4 lg:pr-4">

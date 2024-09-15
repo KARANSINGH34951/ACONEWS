@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { categories, countries, cardData } from "../assets/data/sidebardata";
+import { categories, countries, cardData } from "../../assets/data/sidebardata";
 import SidebarCard from './SidebarCard';
 
 
