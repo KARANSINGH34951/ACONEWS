@@ -7,44 +7,44 @@ import Chatbot from './component/Chatbot';
 import Slider from './component/Slider'; 
 
 const App = () => {
-  const [category, setCategory] = useState('general');
-  const [country, setCountry] = useState('us');
-
-  const handleSelectCategory = (selectedCategory) => {
-    setCategory(selectedCategory);
-  };
-
-  const handleSelectCountry = (selectedCountry) => {
-    setCountry(selectedCountry);
-  };
+  const [category, setCategory] = useState("general");
+  const [country, setCountry] = useState("us");
 
   return (
     <>
       <Header />
       <Chatbot />
-      <div className="flex flex-col lg:flex-row mt-20">
-        <div className="hidden lg:block lg:w-1/4 lg:pr-4">
-          <Sidebar 
-            onSelectCategory={handleSelectCategory} 
-            onSelectCountry={handleSelectCountry} 
-          />
-        </div>
 
-        <div className="flex-grow p-4 lg:w-3/4">
-          <Slider /> 
-          <NewsFeed category={category} country={country} />
-        </div>
-
-        <div className="lg:hidden md:hidden">
-          <Sidebar 
-            onSelectCategory={handleSelectCategory} 
-            onSelectCountry={handleSelectCountry} 
-          />
-        </div>
+      {/* Hero Section */}
+      <div className="mt-20">
+        <Slider />
       </div>
+
+      {/* Main Content */}
+      <div className="flex flex-col lg:flex-row p-4 gap-4">
+        <aside className="hidden lg:block lg:w-1/4">
+          <Sidebar
+            onSelectCategory={setCategory}
+            onSelectCountry={setCountry}
+          />
+        </aside>
+
+        <main className="flex-grow lg:w-3/4">
+          <NewsFeed category={category} country={country} />
+        </main>
+
+        <aside className="lg:hidden md:hidden">
+          <Sidebar
+            onSelectCategory={setCategory}
+            onSelectCountry={setCountry}
+          />
+        </aside>
+      </div>
+
       <Footer />
     </>
   );
 };
+
 
 export default App;

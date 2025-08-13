@@ -1,4 +1,3 @@
-// NewsFeed.jsx
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import SearchBar from '../SearchBar';
@@ -23,22 +22,14 @@ const NewsFeed = ({ category, country }) => {
 
     axios
       .get(`https://aconews-seuh.onrender.com/news`, {
-        params: {
-          category: category,
-          page: page,
-          pageSize: pageSize,
-          country: country,
-        },
+        params: { category, page, pageSize, country },
       })
       .then((response) => {
         setNews(Array.isArray(response.data.articles) ? response.data.articles : []);
         setTotalArticles(response.data.totalArticles || 0);
-        console.log(response.data.totalArticles);
-
         setLoading(false);
       })
-      .catch((error) => {
-        console.error('Error fetching news:', error);
+      .catch(() => {
         setError('Failed to load news.');
         setLoading(false);
       });
@@ -51,28 +42,35 @@ const NewsFeed = ({ category, country }) => {
       .then((response) => {
         setNews(Array.isArray(response.data.articles) ? response.data.articles : []);
         setLoading(false);
-        console.log(response.data.articles);
       })
-      .catch((error) => {
-        console.error('Error fetching search news:', error);
+      .catch(() => {
         setError('Failed to load search results.');
         setLoading(false);
       });
   };
 
-  const handlePageChange = (newPage) => {
-    setCurrentPage(newPage);
-  };
+  const handlePageChange = (newPage) => setCurrentPage(newPage);
 
   const pageSize = currentPage === 1 ? 6 : 4;
   const totalPages = Math.ceil(totalArticles / pageSize);
 
   return (
-    <div className="p-4">
-      <SearchBar onSearch={handleSearch} />
+    <div className="p-6 bg-gray-50 min-h-screen">
+      <div className="mb-6">
+        <SearchBar onSearch={handleSearch} />
+      </div>
+
       {loading && <ShimmerSearchBar />}
+
       <NewsGrid news={news} loading={loading} error={error} />
-      <Pagination currentPage={currentPage} totalPages={totalPages} onPageChange={handlePageChange} />
+
+      <div className="mt-8">
+        <Pagination
+          currentPage={currentPage}
+          totalPages={totalPages}
+          onPageChange={handlePageChange}
+        />
+      </div>
     </div>
   );
 };

@@ -1,23 +1,24 @@
-// Pagination.jsx
 import React from 'react';
 
 const Pagination = ({ currentPage, totalPages, onPageChange }) => {
   return (
-    <div className="flex justify-center mt-4 space-x-2">
+    <div className="flex justify-center items-center gap-2">
       <button
         onClick={() => onPageChange(currentPage - 1)}
         disabled={currentPage === 1}
-        className="px-4 py-2 bg-blue-500 text-white rounded-l-lg disabled:opacity-50"
+        className="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg disabled:opacity-50 disabled:cursor-not-allowed shadow-md transition"
       >
         Previous
       </button>
-      <span className="px-4 py-2 border-t border-b border-blue-500">
-        Page {currentPage} of {totalPages}
+
+      <span className="px-4 py-2 text-sm font-medium bg-white border border-gray-300 rounded-md shadow-sm">
+        Page <span className="font-bold">{currentPage}</span> of {totalPages}
       </span>
+
       <button
         onClick={() => onPageChange(currentPage + 1)}
         disabled={currentPage === totalPages}
-        className="px-4 py-2 bg-blue-500 text-white rounded-r-lg disabled:opacity-50"
+        className="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg disabled:opacity-50 disabled:cursor-not-allowed shadow-md transition"
       >
         Next
       </button>
